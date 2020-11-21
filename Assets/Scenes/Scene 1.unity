@@ -542,12 +542,12 @@ PrefabInstance:
     - target: {fileID: 29685089594953831, guid: 5897fb7dca7504d4a9ffb660ac5353e0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.9503
+      value: -0.909
       objectReference: {fileID: 0}
     - target: {fileID: 29685089594953831, guid: 5897fb7dca7504d4a9ffb660ac5353e0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.0476
+      value: -1.043
       objectReference: {fileID: 0}
     - target: {fileID: 29685089594953831, guid: 5897fb7dca7504d4a9ffb660ac5353e0,
         type: 3}
@@ -604,11 +604,31 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1459832123322882707, guid: 5897fb7dca7504d4a9ffb660ac5353e0,
+        type: 3}
+      propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1459832123322882707, guid: 5897fb7dca7504d4a9ffb660ac5353e0,
+        type: 3}
+      propertyPath: waitingTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1459832123322882707, guid: 5897fb7dca7504d4a9ffb660ac5353e0,
+        type: 3}
+      propertyPath: minX
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1459832123322882707, guid: 5897fb7dca7504d4a9ffb660ac5353e0,
+        type: 3}
+      propertyPath: maxX
+      value: 2.4
+      objectReference: {fileID: 0}
     - target: {fileID: 1528163145918683670, guid: 5897fb7dca7504d4a9ffb660ac5353e0,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 5393803168428407875, guid: d62af6fe3ab44479da86de3eeca8dabd,
+      objectReference: {fileID: -6425286407467472375, guid: d62af6fe3ab44479da86de3eeca8dabd,
         type: 3}
     - target: {fileID: 1528163145918683670, guid: 5897fb7dca7504d4a9ffb660ac5353e0,
         type: 3}
@@ -620,6 +640,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6825826655958058520, guid: 5897fb7dca7504d4a9ffb660ac5353e0,
+        type: 3}
+      propertyPath: shooter
+      value: 
+      objectReference: {fileID: 841233658}
     - target: {fileID: 6825826655958058521, guid: 5897fb7dca7504d4a9ffb660ac5353e0,
         type: 3}
       propertyPath: m_SortingOrder

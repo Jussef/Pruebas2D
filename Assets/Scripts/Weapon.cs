@@ -19,9 +19,9 @@ public class Weapon : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-		Invoke("Shoot", 1f);
-		Invoke("Shoot", 2f);
-		Invoke("Shoot", 3f);
+		// Invoke("Shoot", 1f);
+		// Invoke("Shoot", 2f);
+		// Invoke("Shoot", 3f);
 	}
 
     // Update is called once per frame
@@ -30,7 +30,7 @@ public class Weapon : MonoBehaviour
         
     }
 
-	void Shoot()
+	public void Shoot()
 	{
 		if (bulletPrefab != null && _firePoint != null && shooter != null) {
 			GameObject myBullet = Instantiate(bulletPrefab, _firePoint.position, Quaternion.identity) as GameObject;
