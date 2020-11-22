@@ -4,87 +4,79 @@ using UnityEngine;
 
 public class EnemyPatrol : MonoBehaviour
 {
-    public float speed = 1f;
+	public float speed = 1f;
+	public float minX;
+	public float maxX;
+	public float waitingTime = 2f;
 
-    public float minX;
+	private GameObject _target;
+	private Animator _animator;
+	private Weapon _weapon;
 
-    public float maxX;
 
-    public float waitingTime = 2f;
+	void Awake()
+	{
+		_animator = GetComponent<Animator>();
+		_weapon = GetComponentInChildren<Weapon>();
+	}
 
-    private GameObject _target;
+	// Start is called before the first frame update
+	void Start()
+	{
+		UpdateTarget();
+		StartCoroutine("PatrolToTarget");
+	}
 
-    private Animator _animator;
+	// Update is called once per frame
+	void Update()
+	{
 
-    private Weapon _weapon;
+	}
 
-    void Awake()
-    {
-        _animator = GetComponent<Animator>();
-        _weapon = GetComponentInChildren<Weapon>();
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        UpdateTarget();
-        StartCoroutine("PatrolToTarget");
-    }
+	private void UpdateTarget()
+	{
+		// If first time, create target in the left
+		if (_target == null) {
+			_target = new GameObject("Target");
+			_target.transform.position = new Vector2(minX, transform.position.y);
+			transform.localScale = new Vector3(-1, 1, 1);
+			return;
+		}
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
+		// If we are in the left, change target to the right
+		if (_target.transform.position.x == minX) {
+			_target.transform.position = new Vector2(maxX, transform.position.y);
+			transform.localScale = new Vector3(1, 1, 1);
+		}
 
-    private void UpdateTarget()
-    {
-        // If first time, create target in the left
-        if (_target == null)
-        {
-            _target = new GameObject("Target");
-            _target.transform.position =
-                new Vector2(minX, transform.position.y);
-            transform.localScale = new Vector3(-1, 1, 1);
-            return;
-        }
+		// If we are in the right, change target to the left
+		else if (_target.transform.position.x == maxX) {
+			_target.transform.position = new Vector2(minX, transform.position.y);
+			transform.localScale = new Vector3(-1, 1, 1);
+		}
+	}
 
-        // If we are in the left, change target to the right
-        if (_target.transform.position.x == minX)
-        {
-            _target.transform.position =
-                new Vector2(maxX, transform.position.y);
-            transform.localScale = new Vector3(1, 1, 1);
-        } // If we are in the right, change target to the left
-        else if (_target.transform.position.x == maxX)
-        {
-            _target.transform.position =
-                new Vector2(minX, transform.position.y);
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
-    }
+	private IEnumerator PatrolToTarget()
+	{
+		// Coroutine to move the enemy
+		while (Vector2.Distance(transform.position, _target.transform.position) > 0.05f) {
 
-    private IEnumerator PatrolToTarget()
-    {
-        // Coroutine to move the enemy
-        while (Vector2
-                .Distance(transform.position, _target.transform.position) > 0.05f )
-        {
-
-            // Update animator
+			// Update animator
 			_animator.SetBool("Idle", false);
 
 
-            // let's move to the target
-            Vector2 direction = _target.transform.position - transform.position;
-            float xDirection = direction.x;
+			// let's move to the target
+			Vector2 direction = _target.transform.position - transform.position;
+			float xDirection = direction.x;
 
-            transform.Translate(direction.normalized * speed * Time.deltaTime);
+			transform.Translate(direction.normalized * speed * Time.deltaTime);
 
-            // IMPORTANT
-            yield return null;
-        }
+			// IMPORTANT
+			yield return null;
+		}
 
-        // At this point, i've reached the target, let's set our position to the target's one
+		// At this point, i've reached the target, let's set our position to the target's one
 		Debug.Log("Target reached");
 		transform.position = new Vector2(_target.transform.position.x, transform.position.y);
 		UpdateTarget();
@@ -92,9 +84,9 @@ public class EnemyPatrol : MonoBehaviour
 		// Update animator
 		_animator.SetBool("Idle", true);
 
-		if (_weapon != null) {
-			_weapon.Shoot();
-		}
+		// Shoot
+		_animator.SetTrigger("Shoot");
+
 
 		// And let's wait for a moment
 		Debug.Log("Waiting for " + waitingTime + " seconds");
@@ -103,5 +95,12 @@ public class EnemyPatrol : MonoBehaviour
 		// once waited, let's restore the patrol behaviour
 		Debug.Log("Waited enough, let's update the target and move again");
 		StartCoroutine("PatrolToTarget");
+	}
+
+	void CanShoot()
+	{
+		if (_weapon != null) {
+			_weapon.Shoot();
+		}
 	}
 }
