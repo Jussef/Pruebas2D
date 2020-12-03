@@ -48,8 +48,10 @@ public class PlayerController : MonoBehaviour
 
 			// Flip character
 			if (horizontalInput < 0f && _facingRight == true) {
+				Debug.Log("Izq");
 				Flip();
 			} else if (horizontalInput > 0f && _facingRight == false) {
+				Debug.Log("Der");
 				Flip();
 			}
 		}
@@ -59,6 +61,7 @@ public class PlayerController : MonoBehaviour
 
 		// Is Jumping?
 		if (Input.GetButtonDown("Jump") && _isGrounded == true && _isAttacking == false) {
+			_isGrounded = false;
 			_rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 		}
 
